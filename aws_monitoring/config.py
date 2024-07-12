@@ -23,7 +23,10 @@ class AWSConfig():
     PROFILE = os.environ.get("AWS_PROFILE", "default")
 
     # Get the AWS access key ID
- 
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
+
+    # Get the AWS secret access key
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 
     # Get the file for resources types
     FILE_FOR_RESOURCES_TYPES = os.environ.get(
