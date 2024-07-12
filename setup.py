@@ -6,7 +6,8 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md'), 'r') as f:
 
 setup(
     name='aws_monitor',
-    version='0.5',
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     packages=find_packages(),
     install_requires=[
         'boto3',
