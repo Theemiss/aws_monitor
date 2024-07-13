@@ -1,27 +1,21 @@
 
 
-from aws_monitoring import AWSCostMonitor
+import json
+
+from aws_monitoring import AWSCostMonitor, AWSOrgMonitor
 import datetime
 from datetime import timedelta
 
-cost = AWSCostMonitor()
+org_cost = AWSOrgMonitor()
 
 
-data = cost.get_cost_and_usage(start='2024-01-01', end='2024-06-30',
-                     granularity='MONTHLY', metrics=['BlendedCost'], group_by=[])
+# Get The costs for last month
+last_month = datetime.datetime.now() - timedelta(days=30)
+start_date = last_month.replace(day=1)
+end_date = start_date + timedelta(days=32)
 
-print(data)
-print('\n\n\n')
 
-# Get the costs for the last 30 days
-end_date = datetime.datetime.now()
-start_date = end_date - timedelta(days=30)
 
-data = cost.get_cost_and_usage(start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'),
-                     granularity='DAILY', metrics=['BlendedCost'], group_by=[])
-
-# Get The costs for last 30 days and group them by service
-end_date = datetime.datetime.now()
-start_date = end_date - timedelta(days=30)
-data = cost.get_cost_and_usage(start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'),
-                     granularity='DAILY', metrics=['BlendedCost'], group_by=["Service","Linked account"])
+service= org_cost.get_cost_per_service_graph(start=start_date.strftime(
+    '%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'))
+print(service)
