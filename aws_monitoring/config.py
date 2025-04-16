@@ -1,38 +1,35 @@
+```python
 import pathlib
 import os
 import json
 
 
-class AWSConfig():
+class AWSConfig:
     """
-    Set up the environment for a script that interacts with AWS resources.
+    Configures the environment for interacting with AWS resources.
 
-    Inputs:
-    - The code snippet does not have any explicit inputs. It relies on environment variables defined in a `.env` file or in the system environment.
+    This class retrieves AWS credentials and configurations from environment variables,
+    providing a centralized access point for these settings.  It prioritizes environment
+    variables, falling back to defaults where necessary.
 
-    Outputs:
-    - The code snippet does not produce any explicit outputs. It sets up the environment for a script that interacts with AWS resources by assigning values to various variables.
+    Attributes:
+        CURRENT_DIR (str): The absolute path to the current directory.
+        PROFILE (str): The AWS profile name. Defaults to "default".
+        AWS_ACCESS_KEY_ID (str): The AWS access key ID. Defaults to an empty string.
+        AWS_SECRET_ACCESS_KEY (str): The AWS secret access key. Defaults to an empty string.
+        FILE_FOR_RESOURCES_TYPES (str): Path to the JSON file defining AWS resource types.
+            Defaults to "students/aws/resource_types.json".
+        DEFAULT_REGIONS (list): A list of default AWS regions to use.
+        ENV (str): The environment (e.g., "dev", "prod"). Defaults to "dev".
     """
 
-    # Load environment variables from .env file
-
-    # Get the current directory
     CURRENT_DIR = str(pathlib.Path().absolute())
-
-    # Get the AWS profile
     PROFILE = os.environ.get("AWS_PROFILE", "default")
-
-    # Get the AWS access key ID
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
-
-    # Get the AWS secret access key
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-
-    # Get the file for resources types
     FILE_FOR_RESOURCES_TYPES = os.environ.get(
-        "FILE_FOR_RESOURCES_TYPES", "students/aws/resource_types.json")
-
-    # Set the default regions
-    DEFAULT_REGIONS = ["us-east-1", "us-east-2", "eu-north-1", 'global']
-
+        "FILE_FOR_RESOURCES_TYPES", "students/aws/resource_types.json"
+    )
+    DEFAULT_REGIONS = ["us-east-1", "us-east-2", "eu-north-1", "global"]
     ENV = os.environ.get("ENV", "dev")
+```
