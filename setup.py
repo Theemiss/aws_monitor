@@ -1,8 +1,11 @@
+```python
 from setuptools import setup, find_packages
 import os
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md'), 'r') as f:
-    long_description = f.read()
+def read_readme():
+    """Reads the README.md file and returns its content."""
+    with open(os.path.join(os.path.dirname(__file__), 'README.md'), 'r') as f:
+        return f.read()
 
 setup(
     name='aws_monitor',
@@ -20,7 +23,7 @@ setup(
     },
     author='Ahmed Belhaj',
     author_email='ahmedbelhaj.it@gmail.com',
-    long_description=long_description,
+    long_description=read_readme(),
     long_description_content_type='text/markdown',
     description='A package for monitoring AWS resources',
     url='https://github.com/Theemiss/aws_monitor',
@@ -31,3 +34,4 @@ setup(
     ],
     python_requires='>=3.8',
 )
+```

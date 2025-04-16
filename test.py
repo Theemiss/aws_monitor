@@ -1,21 +1,39 @@
-
-
+```python
 import json
-
-from aws_monitoring import AWSCostMonitor, AWSOrgMonitor
 import datetime
 from datetime import timedelta
 
-org_cost = AWSOrgMonitor()
+from aws_monitoring import AWSOrgMonitor
 
 
-# Get The costs for last month
-last_month = datetime.datetime.now() - timedelta(days=30)
-start_date = last_month.replace(day=1)
-end_date = start_date + timedelta(days=32)
+def get_last_month_dates():
+    """
+    Calculates the start and end dates for the previous month.
+
+    Returns:
+        tuple: A tuple containing the start and end dates as strings in 'YYYY-MM-DD' format.
+    """
+    today = datetime.datetime.now()
+    first_day_current_month = today.replace(day=1)
+    last_day_previous_month = first_day_current_month - timedelta(days=1)
+    first_day_previous_month = last_day_previous_month.replace(day=1)
+
+    start_date = first_day_previous_month.strftime('%Y-%m-%d')
+    end_date = last_day_previous_month.strftime('%Y-%m-%d')  # corrected end date
+
+    return start_date, end_date
 
 
+def main():
+    """
+    Retrieves and prints the cost per service graph for the previous month from AWS Org.
+    """
+    org_cost = AWSOrgMonitor()
+    start_date, end_date = get_last_month_dates()
+    service_costs = org_cost.get_cost_per_service_graph(start=start_date, end=end_date)
+    print(service_costs)
 
-service= org_cost.get_cost_per_service_graph(start=start_date.strftime(
-    '%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'))
-print(service)
+
+if __name__ == "__main__":
+    main()
+```
